@@ -1,4 +1,12 @@
-import { Box, Divider, Typography, Button, List, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+  Button,
+  List,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import type {
@@ -32,7 +40,9 @@ export function AtlasSidePanel({
 
   const ownsCount =
     node?.type === "team"
-      ? graph.edges.filter((e: AtlasEdge) => e.type === "owns" && e.source === node.id).length
+      ? graph.edges.filter(
+          (e: AtlasEdge) => e.type === "owns" && e.source === node.id,
+        ).length
       : null;
 
   const ownership = node?.type === "repo" ? ownerMap[node.id] : null;
@@ -48,14 +58,20 @@ export function AtlasSidePanel({
     // Owns: team -> repo
     if (node.type === "team") {
       return graph.edges
-        .filter((e) => e.type === "owns" && e.source === node.id && isRepoNodeId(e.target))
+        .filter(
+          (e) =>
+            e.type === "owns" && e.source === node.id && isRepoNodeId(e.target),
+        )
         .map((e) => e.target);
     }
 
     // Uses: language -> repo (per your edge comment)
     if (node.type === "language") {
       return graph.edges
-        .filter((e) => e.type === "uses" && e.source === node.id && isRepoNodeId(e.target))
+        .filter(
+          (e) =>
+            e.type === "uses" && e.source === node.id && isRepoNodeId(e.target),
+        )
         .map((e) => e.target);
     }
 
@@ -156,7 +172,9 @@ export function AtlasSidePanel({
       <Typography variant="subtitle2">Languages</Typography>
       <Typography variant="body2" color="text.secondary">
         {node?.type === "repo"
-          ? (repo?.languages?.length ? repo.languages.join(", ") : "—")
+          ? repo?.languages?.length
+            ? repo.languages.join(", ")
+            : "—"
           : node?.type === "language"
             ? node.label
             : "—"}
