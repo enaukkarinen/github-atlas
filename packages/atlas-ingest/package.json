@@ -1,5 +1,5 @@
 {
-  "name": "@GitHub-atlas/ingest",
+  "name": "@gitHub-atlas/ingest",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@GitHub-atlas/types": "workspace:^"
+    "@gitHub-atlas/types": "workspace:^"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

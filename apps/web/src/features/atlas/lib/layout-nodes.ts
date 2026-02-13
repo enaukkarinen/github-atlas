@@ -1,4 +1,4 @@
-import type { AtlasNode } from "@GitHub-atlas/types";
+import type { AtlasNode } from "@gitHub-atlas/types";
 import { COL_LANG, COL_REPO, COL_TEAM, ROW_GAP, ROW_START } from "./constants";
 
 export function layoutNodes(
