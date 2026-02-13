@@ -22,7 +22,7 @@ export function Navbar() {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <AccountTreeOutlinedIcon fontSize="small" />
           <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600 }}>
-            InnerSource Atlas
+            GitHub Atlas
           </Typography>
         </Box>
 

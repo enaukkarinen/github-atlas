@@ -4,7 +4,7 @@ import type {
   AtlasGraph,
   AtlasNode,
   RepoProfile,
-} from "@innersource-atlas/types";
+} from "@GitHub-atlas/types";
 import type { RepoOwnership } from "../adapters/create-owner-map";
 
 export function AtlasSidePanel({

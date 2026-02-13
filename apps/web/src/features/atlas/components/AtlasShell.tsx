@@ -4,7 +4,7 @@ import { AtlasGraph } from "./AtlasGraph";
 import { AtlasSidePanel } from "./AtlasSidePanel";
 
 import repoProfiles from "../mock/repo-profiles.json";
-import type { RepoProfile } from "@innersource-atlas/types";
+import type { RepoProfile } from "@GitHub-atlas/types";
 import { buildOwnershipGraph } from "../adapters/build-ownership-graph";
 import { createOwnerMap } from "../adapters/create-owner-map";
 

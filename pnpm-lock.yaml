@@ -26,7 +26,7 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.2.9
         version: 5.2.9
-      '@innersource-atlas/types':
+      '@GitHub-atlas/types':
         specifier: workspace:*
         version: link:../../packages/atlas-types
       '@mui/icons-material':
@@ -87,7 +87,7 @@ importers:
 
   packages/atlas-ingest:
     dependencies:
-      '@innersource-atlas/types':
+      '@GitHub-atlas/types':
         specifier: workspace:^
         version: link:../atlas-types
     devDependencies:

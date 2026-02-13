@@ -1,4 +1,4 @@
-import type { RepoProfile } from "@innersource-atlas/types";
+import type { RepoProfile } from "@GitHub-atlas/types";
 
 export type RepoOwnership = RepoProfile["ownership"];
 

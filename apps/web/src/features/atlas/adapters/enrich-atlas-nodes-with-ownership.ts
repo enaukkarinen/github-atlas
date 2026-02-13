@@ -1,5 +1,5 @@
 import type { AtlasNode, RepoNode } from "../atlasTypes";
-import type { RepoProfile } from "@innersource-atlas/types";
+import type { RepoProfile } from "@GitHub-atlas/types";
 import { createOwnerMap } from "./create-owner-map";
 
 export function enrichAtlasNodesWithOwnership(

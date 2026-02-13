@@ -1,9 +1,9 @@
 {
-  "name": "@innersource-atlas/kb",
+  "name": "@GitHub-atlas/kb",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Knowledge base ingestion, chunking, and embedding utilities for InnerSource Atlas",
+  "description": "Knowledge base ingestion, chunking, and embedding utilities for GitHub Atlas",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

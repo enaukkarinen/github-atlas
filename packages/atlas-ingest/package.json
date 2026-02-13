@@ -1,9 +1,9 @@
 {
-  "name": "@innersource-atlas/ingest",
+  "name": "@GitHub-atlas/ingest",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Repository ingestion and metadata extraction for InnerSource Atlas",
+  "description": "Repository ingestion and metadata extraction for GitHub Atlas",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -14,7 +14,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@innersource-atlas/types": "workspace:^"
+    "@GitHub-atlas/types": "workspace:^"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

@@ -1,8 +1,8 @@
 {
-  "name": "innersource-atlas",
+  "name": "github-atlas",
   "private": true,
   "version": "0.1.0",
-  "description": "InnerSource Atlas – map- and chat-driven discovery for InnerSource systems and repositories",
+  "description": "GitHub Atlas graph and chat-driven discovery for GitHub systems and repositories",
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"

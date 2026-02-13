@@ -10,7 +10,7 @@ export class GitHubClient {
 
   constructor(opts: GitHubClientOptions = {}) {
     this.baseUrl = opts.baseUrl ?? "https://api.github.com";
-    const ua = opts.userAgent ?? "innersource-atlas-ingest";
+    const ua = opts.userAgent ?? "GitHub-atlas-ingest";
 
     this.headers = {
       "User-Agent": ua,
