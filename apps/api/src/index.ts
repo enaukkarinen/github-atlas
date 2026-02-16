@@ -9,7 +9,7 @@ import { ingestOrgProfiles } from "@github-atlas/ingest";
 
 import { createAppRouter, type Context } from "@github-atlas/api-contract";
 
-const port = Number(process.env.PORT ?? 4000);
+const port = Number(process.env.PORT ?? 3001);
 const githubToken = process.env.GITHUB_TOKEN;
 if (!githubToken) throw new Error("GITHUB_TOKEN is not set");
 
