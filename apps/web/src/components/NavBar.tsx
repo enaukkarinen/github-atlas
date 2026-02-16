@@ -1,41 +1,31 @@
 import {
   AppBar,
   Box,
-  IconButton,
   TextField,
   Toolbar,
   Typography,
   Button,
 } from "@mui/material";
-import { Link as RouterLink, useLocation } from "react-router-dom";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import { Link as RouterLink } from "react-router-dom";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
+import { OrgSelector } from "./OrgSelector";
+import { useOrg } from "../app/OrgContext";
 
 export function Navbar() {
-  const location = useLocation();
-
-  const isActive = (path: string) => location.pathname === path;
-
+  const { org, setOrg } = useOrg();
   return (
     <AppBar position="static" elevation={0}>
       <Toolbar sx={{ gap: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <AccountTreeOutlinedIcon fontSize="small" />
-          <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600 }}>
-            GitHub Atlas
-          </Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button
-            component={RouterLink}
-            to="/"
-            color={isActive("/") ? "secondary" : "inherit"}
-            startIcon={<HomeOutlinedIcon />}
-          >
-            Atlas
+          <Button component={RouterLink} to="/">
+            <AccountTreeOutlinedIcon fontSize="small" />
+            <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600 }}>
+              GitHub Atlas
+            </Typography>
           </Button>
         </Box>
+
+        <OrgSelector value={org} onChange={setOrg} />
 
         <Box sx={{ flex: 1 }} />
 
@@ -53,15 +43,6 @@ export function Navbar() {
         />
 
         <Box sx={{ width: 8 }} />
-
-        <IconButton
-          color="inherit"
-          aria-label="Home"
-          component={RouterLink}
-          to="/"
-        >
-          <HomeOutlinedIcon />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

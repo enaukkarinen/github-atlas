@@ -7,10 +7,12 @@ import repoProfiles from "../mock/repo-profiles.json";
 import type { RepoProfile } from "@github-atlas/types";
 import { buildOwnershipGraph } from "../adapters/build-ownership-graph";
 import { createOwnerMap } from "../adapters/create-owner-map";
+import { useOrg } from "../../../app/OrgContext";
 
 const RIGHT_PANEL_WIDTH = 380;
 
 export function AtlasShell() {
+  const { org } = useOrg();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   useEffect(() => {

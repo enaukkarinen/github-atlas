@@ -1,8 +1,11 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import type { ReactNode } from "react";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink } from "@trpc/client";
+
 import { trpc } from "../trpc";
+import { OrgProvider } from "./OrgContext";
 
 const Provider = trpc.Provider;
 
@@ -30,8 +33,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
+          <OrgProvider>
+            <CssBaseline />
+            <ReactQueryDevtools initialIsOpen={false} />
+            {children}
+          </OrgProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>
