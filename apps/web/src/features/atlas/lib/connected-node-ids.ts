@@ -1,4 +1,4 @@
-import type { AtlasEdge } from "@gitHub-atlas/types";
+import type { AtlasEdge } from "@github-atlas/types";
 
 export function connectedNodeIds(
   edges: AtlasEdge[],

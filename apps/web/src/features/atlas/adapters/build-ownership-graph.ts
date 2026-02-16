@@ -3,7 +3,7 @@ import type {
   AtlasGraph,
   AtlasNode,
   AtlasEdge,
-} from "@gitHub-atlas/types";
+} from "@github-atlas/types";
 
 export function buildOwnershipGraph(profiles: RepoProfile[]): AtlasGraph {
   const nodes: AtlasNode[] = [];

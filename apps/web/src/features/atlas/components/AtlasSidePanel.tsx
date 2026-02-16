@@ -14,7 +14,7 @@ import type {
   AtlasGraph,
   AtlasNode,
   RepoProfile,
-} from "@gitHub-atlas/types";
+} from "@github-atlas/types";
 import type { RepoOwnership } from "../adapters/create-owner-map";
 
 function repoFullNameFromId(id: string): string | null {

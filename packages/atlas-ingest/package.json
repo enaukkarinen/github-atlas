@@ -1,5 +1,5 @@
 {
-  "name": "@gitHub-atlas/ingest",
+  "name": "@github-atlas/ingest",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,11 +10,14 @@
     "lint": "echo \"(no lint configured yet)\"",
     "test": "echo \"(no tests yet)\""
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@gitHub-atlas/types": "workspace:^"
+    "@github-atlas/types": "workspace:^"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

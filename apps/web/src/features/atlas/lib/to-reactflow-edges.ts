@@ -1,4 +1,4 @@
-import type { AtlasEdge } from "@gitHub-atlas/types";
+import type { AtlasEdge } from "@github-atlas/types";
 import type { Edge } from "reactflow";
 
 export function toReactFlowEdges(

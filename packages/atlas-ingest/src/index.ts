@@ -1,1 +1,1 @@
-export {};
+export * from "./ingest-org-profiles";
