@@ -23,9 +23,6 @@ importers:
       '@github-atlas/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@github-atlas/types':
-        specifier: workspace:*
-        version: link:../../packages/atlas-types
       '@trpc/server':
         specifier: ^11.0.0
         version: 11.10.0(typescript@5.9.3)
@@ -72,9 +69,9 @@ importers:
       '@github-atlas/api-contract':
         specifier: workspace:^
         version: link:../../packages/api-contract
-      '@github-atlas/types':
+      '@github-atlas/graph':
         specifier: workspace:*
-        version: link:../../packages/atlas-types
+        version: link:../../packages/graph
       '@mui/icons-material':
         specifier: ^7.3.7
         version: 7.3.8(@mui/material@7.3.8(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@types/react@19.2.14)(react@19.2.4)
@@ -142,9 +139,9 @@ importers:
 
   packages/api-contract:
     dependencies:
-      '@github-atlas/types':
+      '@github-atlas/graph':
         specifier: workspace:^
-        version: link:../atlas-types
+        version: link:../graph
       '@trpc/server':
         specifier: ^11.0.0
         version: 11.10.0(typescript@5.9.3)
@@ -156,13 +153,11 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/atlas-types: {}
-
   packages/core:
     dependencies:
-      '@github-atlas/types':
+      '@github-atlas/graph':
         specifier: workspace:^
-        version: link:../atlas-types
+        version: link:../graph
     devDependencies:
       dotenv:
         specifier: ^17.2.3
@@ -173,6 +168,8 @@ importers:
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
+
+  packages/graph: {}
 
 packages:
 

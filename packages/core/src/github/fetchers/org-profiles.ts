@@ -1,8 +1,8 @@
 import { GitHubPort } from "../types/github-port";
 import { buildRepoProfile } from "../../mappers/build-repo-profile";
-import type { RepoProfile } from "@gitHub-atlas/types";
+import type { RepoProfile } from "@gitHub-atlas/graph";
 
-export type IngestOrgProfilesArgs = {
+export type FetchOrgProfilesArgs = {
   org: string;
   githubToken: string;
   type?: "all" | "public" | "private" | "forks" | "sources" | "member";
@@ -10,9 +10,9 @@ export type IngestOrgProfilesArgs = {
   maxPages?: number;
 };
 
-export async function ingestOrgProfiles(
+export async function fetchOrgProfiles(
   github: GitHubPort,
-  args: IngestOrgProfilesArgs,
+  args: FetchOrgProfilesArgs,
 ): Promise<RepoProfile[]> {
   const { org, type = "public", perPage = 100, maxPages = 5 } = args;
 
