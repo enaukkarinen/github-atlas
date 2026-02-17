@@ -18,7 +18,7 @@ const trpcClient = trpc.createClient({
       fetch(url, options) {
         return fetch(url, {
           ...options,
-          credentials: "include", 
+          credentials: "include",
         });
       },
     }),
@@ -31,6 +31,18 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: 10,
+  },
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none", // Set to none, capitalize, or capitalize
+        },
+      },
+    },
   },
 });
 

@@ -10,6 +10,7 @@ import { Link as RouterLink } from "react-router-dom";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
 import { OrgSelector } from "./OrgSelector";
 import { useOrg } from "../app/OrgContext";
+import { GitHubAuthButton } from "./GitHubAuthButton";
 
 export function Navbar() {
   const { org, setOrg } = useOrg();
@@ -29,13 +30,7 @@ export function Navbar() {
 
         <Box sx={{ flex: 1 }} />
 
-        <button
-          onClick={() => {
-            window.location.href = "http://localhost:3001/auth/github";
-          }}
-        >
-          Sign in with GitHub
-        </button>
+        <GitHubAuthButton />
 
         {/* Global search (stub for now) */}
         <TextField
