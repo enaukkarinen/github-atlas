@@ -29,6 +29,14 @@ export function Navbar() {
 
         <Box sx={{ flex: 1 }} />
 
+        <button
+          onClick={() => {
+            window.location.href = "http://localhost:3001/auth/github";
+          }}
+        >
+          Sign in with GitHub
+        </button>
+
         {/* Global search (stub for now) */}
         <TextField
           size="small"
