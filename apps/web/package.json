@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.9",
     "@github-atlas/api-contract": "workspace:^",
-    "@github-atlas/types": "workspace:*",
+    "@github-atlas/graph": "workspace:*",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
     "@tanstack/react-query": "^5.59.0",

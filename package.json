@@ -13,7 +13,7 @@
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
-    "atlas-ingest": "tsx packages/atlas-ingest/src/export-repo-profiles.ts"
+    "atlas-ingest": "tsx packages/core/scripts/export-repo-profiles.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

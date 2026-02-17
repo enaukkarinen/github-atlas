@@ -5,13 +5,11 @@ import cors from "cors";
 import { LRUCache } from "lru-cache";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 
-import type { RepoProfile } from "@github-atlas/types";
-
 import {
   ingestOrgProfiles,
   listViewerOrgs,
   searchOrgsByLogin,
-} from "@github-atlas/ingest";
+} from "@github-atlas/core";
 
 import { createAppRouter, type Context } from "@github-atlas/api-contract";
 

@@ -1,4 +1,4 @@
-import type { RepoProfile } from "@github-atlas/types";
+import type { RepoProfile } from "@github-atlas/graph";
 
 export type RepoOwnership = RepoProfile["ownership"];
 

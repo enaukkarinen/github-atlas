@@ -17,7 +17,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@github-atlas/types": "workspace:^"
+    "@github-atlas/graph": "workspace:^"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

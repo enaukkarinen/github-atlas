@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { RepoProfile } from "@github-atlas/types";
+import type { RepoProfile } from "@github-atlas/graph";
 import { router, publicProcedure } from "../trpc";
 
 export type AtlasDeps = {

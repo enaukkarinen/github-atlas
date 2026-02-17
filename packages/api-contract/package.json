@@ -8,7 +8,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@github-atlas/types": "workspace:^",
+    "@github-atlas/graph": "workspace:^",
     "@trpc/server": "^11.0.0",
     "zod": "^3.24.0"
   },

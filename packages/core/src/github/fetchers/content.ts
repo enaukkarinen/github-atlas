@@ -1,13 +1,7 @@
 import { GitHubClient, GitHubError } from "../github-client";
 import { RepoRef } from "../types/repo-ref";
+import { RepoTextFiles } from "../types/repo-text-files";
 
-export type RepoTextFiles = {
-  readme: string | null;
-  codeowners: {
-    path: string | null;
-    text: string | null;
-  };
-};
 
 const CODEOWNERS_CANDIDATE_PATHS = [
   ".github/CODEOWNERS",

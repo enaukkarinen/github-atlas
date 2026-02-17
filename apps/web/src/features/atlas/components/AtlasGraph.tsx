@@ -5,7 +5,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
-import type { AtlasGraph as AtlasGraphModel } from "@github-atlas/types";
+import type { AtlasGraph as AtlasGraphModel } from "@github-atlas/graph";
 import { toReactFlowEdges } from "../lib/to-reactflow-edges";
 import { toReactFlowNodes } from "../lib/to-reactflow-nodes";
 

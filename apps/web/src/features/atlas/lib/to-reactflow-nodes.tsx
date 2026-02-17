@@ -1,4 +1,4 @@
-import type { AtlasEdge, AtlasNode } from "@github-atlas/types";
+import type { AtlasEdge, AtlasNode } from "@github-atlas/graph";
 import type { Node } from "reactflow";
 import { connectedNodeIds } from "./connected-node-ids";
 import { layoutNodes } from "./layout-nodes";

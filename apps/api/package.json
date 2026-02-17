@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@github-atlas/api-contract": "workspace:^",
-    "@github-atlas/ingest": "workspace:*",
-    "@github-atlas/types": "workspace:*",
+    "@github-atlas/core": "workspace:*",
     "@trpc/server": "^11.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
