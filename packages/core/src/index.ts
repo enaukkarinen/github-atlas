@@ -1,1 +1,6 @@
-export { fetchOrgProfiles, listViewerOrgs, searchOrgsByLogin } from "./github";
+export {
+  fetchOrgProfiles,
+  fetchOrgProfilesWithToken,
+  listViewerOrgs,
+  searchOrgsByLogin,
+} from "./github";

@@ -1,15 +1,9 @@
 import "dotenv/config";
-
+import crypto from "node:crypto";
 import express from "express";
 import cors from "cors";
 import { LRUCache } from "lru-cache";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-
-import {
-  fetchOrgProfiles,
-  listViewerOrgs,
-  searchOrgsByLogin,
-} from "@github-atlas/core";
 
 import { createAppRouter, type Context } from "@github-atlas/api-router";
 
@@ -53,6 +47,10 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
+function tokenScope(token: string) {
+  return crypto.createHash("sha256").update(token).digest("hex").slice(0, 12);
+}
+
 app.use(
   "/trpc",
   createExpressMiddleware({
@@ -61,10 +59,8 @@ app.use(
     createContext({ req }): Context {
       return {
         githubToken,
-        req: {
-          method: req.method,
-          originalUrl: req.originalUrl,
-        },
+        cacheScope: tokenScope(githubToken),
+        req: { method: req.method, originalUrl: req.originalUrl },
       };
     },
 
