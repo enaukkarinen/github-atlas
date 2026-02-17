@@ -15,6 +15,10 @@ const CODEOWNERS_CANDIDATE_PATHS = [
   "docs/CODEOWNERS",
 ];
 
+/* ------------------------------------------------------------------ */
+/* INTERNAL (client-based) — keep for high-performance ingest loops   */
+/* ------------------------------------------------------------------ */
+
 export async function fetchRepoTextFiles(
   client: GitHubClient,
   ref: RepoRef,
@@ -27,12 +31,28 @@ export async function fetchRepoTextFiles(
   return { readme, codeowners };
 }
 
+/* ------------------------------------------------------------------ */
+/* PUBLIC (token-based) — clean external API                          */
+/* ------------------------------------------------------------------ */
+
+export async function fetchRepoTextFilesWithToken(args: {
+  githubToken: string;
+  ref: RepoRef;
+}): Promise<RepoTextFiles> {
+  const client = new GitHubClient({ token: args.githubToken });
+  return fetchRepoTextFiles(client, args.ref);
+}
+
+/* -------------------------- internals ----------------------------- */
+
 async function fetchReadme(
   client: GitHubClient,
   ref: RepoRef,
 ): Promise<string | null> {
   const q = ref.ref ? `?ref=${encodeURIComponent(ref.ref)}` : "";
-  const path = `/repos/${encodeURIComponent(ref.owner)}/${encodeURIComponent(ref.repo)}/readme${q}`;
+  const path = `/repos/${encodeURIComponent(ref.owner)}/${encodeURIComponent(
+    ref.repo,
+  )}/readme${q}`;
 
   try {
     const text = await client.getRaw(path);
@@ -50,7 +70,10 @@ async function fetchCodeowners(
   const q = ref.ref ? `?ref=${encodeURIComponent(ref.ref)}` : "";
 
   for (const p of CODEOWNERS_CANDIDATE_PATHS) {
-    const path = `/repos/${encodeURIComponent(ref.owner)}/${encodeURIComponent(ref.repo)}/contents/${encodeURIComponent(p)}${q}`;
+    const path = `/repos/${encodeURIComponent(ref.owner)}/${encodeURIComponent(
+      ref.repo,
+    )}/contents/${encodeURIComponent(p)}${q}`;
+
     try {
       const text = await client.getRaw(path);
       if (text) return { path: p, text };

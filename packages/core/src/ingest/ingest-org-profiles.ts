@@ -1,7 +1,10 @@
-import { GitHubClient } from "./github/github-client";
-import { listOrgRepos } from "./github/repos";
-import { fetchRepoLanguageNames, fetchRepoTextFiles } from "./github";
-import { buildRepoProfile } from "./build-repo-profile";
+import {
+  GitHubClient,
+  fetchRepoLanguageNames,
+  fetchRepoTextFiles,
+  listOrgRepos,
+} from "../github";
+import { buildRepoProfile } from "../mappers/build-repo-profile";
 import type { RepoProfile } from "@gitHub-atlas/types";
 
 export type IngestOrgProfilesArgs = {

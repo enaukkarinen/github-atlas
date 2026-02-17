@@ -2,7 +2,7 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ingestOrgProfiles } from "./ingest-org-profiles";
+import { ingestOrgProfiles } from "../src/ingest/ingest-org-profiles";
 
 function getArg(name: string): string | undefined {
   const idx = process.argv.indexOf(`--${name}`);
@@ -25,7 +25,6 @@ async function main() {
     return;
   }
 
-  // default: write to your existing mock path (optional)
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
   const outPath = path.resolve(

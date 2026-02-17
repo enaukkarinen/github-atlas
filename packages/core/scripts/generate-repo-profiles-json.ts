@@ -8,10 +8,14 @@ dotenv.config({
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-import { GitHubClient } from "./github/github-client";
-import { listOrgRepos } from "./github/repos";
-import { fetchRepoTextFiles, fetchRepoLanguageNames } from "./github";
-import { buildRepoProfile } from "./build-repo-profile";
+import {
+  GitHubClient,
+  fetchRepoTextFiles,
+  fetchRepoLanguageNames,
+  listOrgRepos,
+} from "../src/github";
+
+import { buildRepoProfile } from "../src/mappers/build-repo-profile";
 
 const ORG = "backstage";
 
