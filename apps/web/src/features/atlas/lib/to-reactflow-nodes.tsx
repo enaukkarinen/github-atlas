@@ -4,13 +4,21 @@ import { connectedNodeIds } from "./connected-node-ids";
 import { layoutNodes } from "./layout-nodes";
 import { NODE_H, NODE_W } from "./constants";
 
-export function toReactFlowNodes(
-  items: AtlasNode[],
-  edges: AtlasEdge[],
-  selectedId?: string | null,
-  activeId?: string | null,
-): Node[] {
-  const positions = layoutNodes(items);
+export type ToReactFlowNodesParams = {
+  items: AtlasNode[];
+  edges: AtlasEdge[];
+  selectedId?: string | null;
+  activeId?: string | null;
+  positions: Record<string, { x: number; y: number }>;
+};
+
+export function toReactFlowNodes({
+  items,
+  edges,
+  positions,
+  selectedId,
+  activeId,
+}: ToReactFlowNodesParams): Node[] {
   const connected = activeId ? connectedNodeIds(edges, activeId) : null;
 
   return items.map((n) => {

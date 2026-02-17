@@ -4,12 +4,24 @@ export function connectedNodeIds(
   edges: AtlasEdge[],
   activeId: string,
 ): Set<string> {
-  const s = new Set<string>([activeId]);
-
+  const adj = new Map<string, string[]>();
   for (const e of edges) {
-    if (e.source === activeId) s.add(e.target);
-    if (e.target === activeId) s.add(e.source);
+    (adj.get(e.source) ?? adj.set(e.source, []).get(e.source)!).push(e.target);
+    (adj.get(e.target) ?? adj.set(e.target, []).get(e.target)!).push(e.source);
   }
 
-  return s;
+  const seen = new Set<string>([activeId]);
+  const q = [activeId];
+
+  while (q.length) {
+    const cur = q.shift()!;
+    for (const nxt of adj.get(cur) ?? []) {
+      if (!seen.has(nxt)) {
+        seen.add(nxt);
+        q.push(nxt);
+      }
+    }
+  }
+
+  return seen;
 }

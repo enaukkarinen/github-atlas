@@ -7,6 +7,7 @@ import type { RepoProfile } from "@github-atlas/graph";
 import { buildOwnershipGraph } from "../adapters/build-ownership-graph";
 import { createOwnerMap } from "../adapters/create-owner-map";
 import { useOrg } from "../../../app/OrgContext";
+import { ReactFlowProvider } from "reactflow";
 
 const RIGHT_PANEL_WIDTH = 380;
 
@@ -41,11 +42,13 @@ export function AtlasShell({ profiles }: { profiles: RepoProfile[] }) {
   return (
     <Box sx={{ display: "flex", height: "100%", minHeight: 0 }}>
       <Box sx={{ flex: 1, minWidth: 0 }}>
-        <AtlasGraph
-          graph={graph}
-          selectedId={selectedId}
-          onSelect={setSelectedId}
-        />
+        <ReactFlowProvider>
+          <AtlasGraph
+            graph={graph}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+          />
+        </ReactFlowProvider>
       </Box>
 
       <Box
