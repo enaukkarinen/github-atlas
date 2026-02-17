@@ -1,7 +1,12 @@
 import { z } from "zod";
 import type { RepoProfile } from "@github-atlas/graph"; // ✅ use types, not graph
-import { fetchOrgProfiles, listViewerOrgs, searchOrgsByLogin } from "@github-atlas/core";
+import {
+  fetchOrgProfiles,
+  listViewerOrgs,
+  searchOrgsByLogin,
+} from "@github-atlas/core";
 import { router, publicProcedure } from "../trpc";
+import { fetchOrgProfilesWithToken } from "../../../core/src/github";
 
 export type AtlasCache = {
   get: (key: string) => unknown | undefined;
@@ -9,18 +14,11 @@ export type AtlasCache = {
   delete?: (key: string) => void;
 };
 
-// Keep this very small and deterministic.
-// Ideally ctx has ctx.cacheScope, but we can fall back to a short token prefix.
-function cacheScope(ctx: { githubToken: string; cacheScope?: string }) {
-  return ctx.cacheScope ?? ctx.githubToken.slice(0, 8);
-}
-
 export function createAtlasRouter(cache: AtlasCache) {
   return router({
     // orgs the token user belongs to
     myOrgs: publicProcedure.query(async ({ ctx }) => {
-      const scope = cacheScope(ctx);
-      const key = `${scope}:myOrgs`;
+      const key = `githubAtlas:myOrgs`;
 
       const hit = cache.get(key) as string[] | undefined;
       if (hit) return hit;
@@ -39,11 +37,10 @@ export function createAtlasRouter(cache: AtlasCache) {
         }),
       )
       .query(async ({ input, ctx }) => {
-        const scope = cacheScope(ctx);
         const term = input.term.trim();
         const limit = input.limit ?? 10;
 
-        const key = `${scope}:orgSearch:${term.toLowerCase()}:${limit}`;
+        const key = `githubAtlas:orgSearch:${term.toLowerCase()}:${limit}`;
         const hit = cache.get(key) as string[] | undefined;
         if (hit) return hit;
 
@@ -68,15 +65,14 @@ export function createAtlasRouter(cache: AtlasCache) {
         }),
       )
       .query(async ({ input, ctx }) => {
-        const scope = cacheScope(ctx);
-        const key = `${scope}:profiles:${input.org.toLowerCase()}`;
+        const key = `githubAtlas:profiles:${input.org.toLowerCase()}`;
 
         if (!input.force) {
           const hit = cache.get(key) as RepoProfile[] | undefined;
           if (hit) return { org: input.org, count: hit.length, profiles: hit };
         }
 
-        const profiles = await fetchOrgProfiles({
+        const profiles = await fetchOrgProfilesWithToken({
           org: input.org,
           githubToken: ctx.githubToken,
         });
@@ -88,14 +84,14 @@ export function createAtlasRouter(cache: AtlasCache) {
     refresh: publicProcedure
       .input(z.object({ org: z.string().min(1) }))
       .mutation(async ({ input, ctx }) => {
-        const scope = cacheScope(ctx);
+        const key = `githubAtlas:profiles:${input.org.toLowerCase()}`;
 
-        const profiles = await fetchOrgProfiles({
+        const profiles = await fetchOrgProfilesWithToken({
           org: input.org,
           githubToken: ctx.githubToken,
         });
 
-        cache.set(`${scope}:profiles:${input.org.toLowerCase()}`, profiles);
+        cache.set(key, profiles);
 
         return {
           ok: true,

@@ -1,5 +1,9 @@
-import { RepoProfile } from "./types/repo-profile";
-import { AtlasGraph, AtlasNode, AtlasEdge } from "./types/atlas-graph";
+import { type RepoProfile } from "./types/repo-profile";
+import {
+  type AtlasGraph,
+  type AtlasNode,
+  type AtlasEdge,
+} from "./types/atlas-graph";
 
 export function buildAtlasGraph(profiles: RepoProfile[]): AtlasGraph {
   const nodes = new Map<string, AtlasNode>();

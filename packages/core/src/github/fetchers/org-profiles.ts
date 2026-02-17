@@ -1,14 +1,26 @@
-import { GitHubPort } from "../types/github-port";
+import { type GitHubPort } from "../types/github-port";
 import { buildRepoProfile } from "../../mappers/build-repo-profile";
 import type { RepoProfile } from "@gitHub-atlas/graph";
+import { createGitHubAdapterWithToken } from "../create-adapter";
 
 export type FetchOrgProfilesArgs = {
   org: string;
-  githubToken: string;
   type?: "all" | "public" | "private" | "forks" | "sources" | "member";
   perPage?: number;
   maxPages?: number;
 };
+
+export type FetchOrgProfilesWithTokenArgs = FetchOrgProfilesArgs & {
+  githubToken: string;
+};
+
+export async function fetchOrgProfilesWithToken(
+  args: FetchOrgProfilesWithTokenArgs,
+): Promise<RepoProfile[]> {
+  const github = createGitHubAdapterWithToken(args.githubToken); 
+  const { githubToken: _token, ...rest } = args;
+  return fetchOrgProfiles(github, rest);
+}
 
 export async function fetchOrgProfiles(
   github: GitHubPort,

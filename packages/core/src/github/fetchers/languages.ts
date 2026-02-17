@@ -1,5 +1,5 @@
 import { GitHubClient } from "../github-client";
-import { RepoRef } from "../types/repo-ref";
+import { type RepoRef } from "../types/repo-ref";
 
 export type RepoLanguages = Record<string, number>;
 

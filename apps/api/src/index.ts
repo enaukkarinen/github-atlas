@@ -39,12 +39,7 @@ const cache = new LRUCache<string, any>({
 // router
 // ---------------------------------------------------------------------
 
-const appRouter = createAppRouter({
-  fetchOrgProfiles,
-  listViewerOrgs,
-  searchOrgsByLogin,
-  cache,
-})
+const appRouter = createAppRouter(cache);
 
 // ---------------------------------------------------------------------
 // express

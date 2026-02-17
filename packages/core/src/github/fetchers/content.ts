@@ -1,7 +1,6 @@
 import { GitHubClient, GitHubError } from "../github-client";
-import { RepoRef } from "../types/repo-ref";
-import { RepoTextFiles } from "../types/repo-text-files";
-
+import { type RepoRef } from "../types/repo-ref";
+import { type RepoTextFiles } from "../types/repo-text-files";
 
 const CODEOWNERS_CANDIDATE_PATHS = [
   ".github/CODEOWNERS",

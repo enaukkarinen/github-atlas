@@ -1,6 +1,6 @@
-import { RepoTextFiles } from "./repo-text-files";
-import { GitHubRepo, ListReposOptions } from "../fetchers/repositories";
-import { RepoRef } from "./repo-ref";
+import { type RepoTextFiles } from "./repo-text-files";
+import { type GitHubRepo, type ListReposOptions } from "../fetchers/repositories";
+import { type RepoRef } from "./repo-ref";
 
 export interface GitHubPort {
   listOrgRepos(args: ListReposOptions): Promise<GitHubRepo[]>;

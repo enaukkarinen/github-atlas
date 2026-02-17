@@ -19,7 +19,7 @@ importers:
     dependencies:
       '@github-atlas/api-router':
         specifier: workspace:^
-        version: link:../../packages/api-contract
+        version: link:../../packages/api-router
       '@github-atlas/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -68,7 +68,7 @@ importers:
         version: 5.2.9
       '@github-atlas/api-router':
         specifier: workspace:^
-        version: link:../../packages/api-contract
+        version: link:../../packages/api-router
       '@github-atlas/graph':
         specifier: workspace:*
         version: link:../../packages/graph
@@ -137,8 +137,11 @@ importers:
         specifier: ^7.2.4
         version: 7.3.1(@types/node@24.10.13)(tsx@4.21.0)(yaml@1.10.2)
 
-  packages/api-contract:
+  packages/api-router:
     dependencies:
+      '@github-atlas/core':
+        specifier: workspace:^
+        version: link:../core
       '@github-atlas/graph':
         specifier: workspace:^
         version: link:../graph

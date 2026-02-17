@@ -68,12 +68,13 @@ export class GitHubClient {
 }
 
 export class GitHubError extends Error {
-  constructor(
-    public readonly status: number,
-    message: string,
-    public readonly body?: string,
-  ) {
+  readonly status: number;
+  readonly body?: string;
+  
+  constructor(status: number, message: string, body?: string) {
     super(message);
+    this.status = status;
+    this.body = body;
   }
 }
 
