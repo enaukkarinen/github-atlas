@@ -82,17 +82,14 @@ export async function githubCallback(req: Request, res: Response) {
 
   const token = await exchangeCodeForToken(code);
 
-  // store server-side; never send token to the browser JS
   req.session.githubToken = token;
 
-  // optional but recommended: stable cache scope
   try {
     req.session.githubLogin = await fetchViewerLogin(token);
   } catch {
-    // ignore; not critical
+    // ignore;
   }
 
-  // redirect back to web app (or wherever your UI lives)
   res.redirect(process.env.WEB_BASE_URL ?? "/");
 }
 

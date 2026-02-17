@@ -1,7 +1,7 @@
-import type { Express } from "express";
+import { Router } from "express";
 
-export function registerHealthRoutes(app: Express) {
-  app.get("/health", (_req, res) => {
-    res.json({ ok: true });
-  });
-}
+export const healthRouter = Router();
+
+healthRouter.get("/health", (_req, res) => {
+  res.json({ ok: true });
+});

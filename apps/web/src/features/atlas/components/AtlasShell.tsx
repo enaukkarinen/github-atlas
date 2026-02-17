@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import { AtlasGraph } from "./AtlasGraph";
 import { AtlasSidePanel } from "./AtlasSidePanel";
 
-import repoProfiles from "../mock/repo-profiles.json";
 import type { RepoProfile } from "@github-atlas/graph";
 import { buildOwnershipGraph } from "../adapters/build-ownership-graph";
 import { createOwnerMap } from "../adapters/create-owner-map";
@@ -11,7 +10,7 @@ import { useOrg } from "../../../app/OrgContext";
 
 const RIGHT_PANEL_WIDTH = 380;
 
-export function AtlasShell() {
+export function AtlasShell({ profiles }: { profiles: RepoProfile[] }) {
   const { org } = useOrg();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -26,10 +25,8 @@ export function AtlasShell() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const profiles = repoProfiles as RepoProfile[];
-
-  const graph = buildOwnershipGraph(profiles);
-  const ownerMap = createOwnerMap(profiles);
+  const graph = useMemo(() => buildOwnershipGraph(profiles), [profiles]);
+  const ownerMap = useMemo(() => createOwnerMap(profiles), [profiles]);
 
   const selectedNode = selectedId
     ? (graph.nodes.find((n) => n.id === selectedId) ?? null)
@@ -39,7 +36,7 @@ export function AtlasShell() {
     const m: Record<string, RepoProfile> = {};
     for (const p of profiles) m[`repo:${p.owner}/${p.name}`] = p;
     return m;
-  }, []);
+  }, [profiles]);
 
   return (
     <Box sx={{ display: "flex", height: "100%", minHeight: 0 }}>

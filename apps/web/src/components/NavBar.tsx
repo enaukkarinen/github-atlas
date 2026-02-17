@@ -5,47 +5,63 @@ import {
   Toolbar,
   Typography,
   Button,
+  Stack,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
+
 import { OrgSelector } from "./OrgSelector";
-import { useOrg } from "../app/OrgContext";
 import { GitHubAuthButton } from "./GitHubAuthButton";
 
 export function Navbar() {
-  const { org, setOrg } = useOrg();
   return (
     <AppBar position="static" elevation={0}>
-      <Toolbar sx={{ gap: 2 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Button component={RouterLink} to="/">
-            <AccountTreeOutlinedIcon fontSize="small" />
-            <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600 }}>
-              GitHub Atlas
-            </Typography>
-          </Button>
+      <Toolbar
+        sx={{
+          gap: 2,
+          minHeight: 64,
+        }}
+      >
+        {/* Left: Brand */}
+        <Button
+          component={RouterLink}
+          to="/"
+          sx={{ display: "flex", gap: 1, alignItems: "center" }}
+        >
+          <AccountTreeOutlinedIcon fontSize="small" />
+          <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 600 }}>
+            GitHub Atlas
+          </Typography>
+        </Button>
+
+        {/* Middle: Global search (primary) */}
+        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+          <TextField
+            size="small"
+            placeholder="Search repos, systems, docs…"
+            sx={{
+              width: "min(680px, 100%)",
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "rgba(0,0,0,0.25)",
+              },
+            }}
+            inputProps={{ "aria-label": "Search" }}
+          />
         </Box>
 
-        <OrgSelector value={org} onChange={setOrg} />
+        {/* Right: Account + org */}
+        <Stack
+          direction="row"
+          spacing={1.25}
+          alignItems="center"
+          sx={{ flexShrink: 0 }}
+        >
+          <GitHubAuthButton />
 
-        <Box sx={{ flex: 1 }} />
-
-        <GitHubAuthButton />
-
-        {/* Global search (stub for now) */}
-        <TextField
-          size="small"
-          placeholder="Search repos, systems, docs…"
-          sx={{
-            width: 380,
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "rgba(0,0,0,0.25)",
-            },
-          }}
-          inputProps={{ "aria-label": "Search" }}
-        />
-
-        <Box sx={{ width: 8 }} />
+          <Box sx={{ width: 240 }}>
+            <OrgSelector />
+          </Box>
+        </Stack>
       </Toolbar>
     </AppBar>
   );

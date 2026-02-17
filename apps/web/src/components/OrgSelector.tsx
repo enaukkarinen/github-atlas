@@ -1,57 +1,67 @@
-import { Box, Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { trpc } from "../trpc";
+import { useOrg } from "../app/OrgContext";
 
-const ORG_STORAGE_KEY = "github-atlas:lastOrg";
+export function OrgSelector() {
+  const { org, setOrg } = useOrg();
 
-function getInitialOrg(defaultOrg: string) {
-  return localStorage.getItem(ORG_STORAGE_KEY) ?? defaultOrg;
-}
+  const [inputValue, setInputValue] = useState("");
+  const [debounced, setDebounced] = useState("");
 
-type OrgSelectorProps = {
-  value: string; // currently active org (from parent)
-  onChange: (org: string) => void;
-  defaultOrg?: string;
-};
-
-export function OrgSelector({
-  value,
-  onChange,
-  defaultOrg = "backstage",
-}: OrgSelectorProps) {
-  const [input, setInput] = useState(() => getInitialOrg(defaultOrg));
-
-  // keep input aligned if parent changes org externally
   useEffect(() => {
-    setInput(value);
-  }, [value]);
+    const t = setTimeout(() => setDebounced(inputValue.trim()), 250);
+    return () => clearTimeout(t);
+  }, [inputValue]);
 
-  const submit = () => {
-    const next = input.trim();
-    if (!next) return;
+  // 1) orgs user belongs to
+  const myOrgsQuery = trpc.atlas.myOrgs.useQuery(undefined, {
+    staleTime: 60_000,
+  });
 
-    localStorage.setItem(ORG_STORAGE_KEY, next);
-    onChange(next);
-  };
+  // 2) search query
+  const searchQuery = trpc.atlas.searchOrgs.useQuery(
+    { term: debounced, limit: 10 },
+    {
+      enabled: debounced.length >= 2,
+      staleTime: 60_000,
+    },
+  );
+
+  const options = useMemo(() => {
+    const a = myOrgsQuery.data ?? [];
+    const b = searchQuery.data ?? [];
+    return Array.from(new Set([...a, ...b])).sort();
+  }, [myOrgsQuery.data, searchQuery.data]);
+
+  const loading = myOrgsQuery.isLoading || searchQuery.isFetching;
 
   return (
-    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-      <TextField
-        size="small"
-        label="GitHub org"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") submit();
-        }}
-      />
-
-      <Button
-        variant="contained"
-        onClick={submit}
-        disabled={!input.trim() || input.trim() === value}
-      >
-        Load
-      </Button>
-    </Box>
+    <Autocomplete
+      size="small"
+      // sx={{ width: 240, maxWidth: "100%" }}
+      options={options}
+      value={org}
+      inputValue={inputValue}
+      onInputChange={(_, value) => setInputValue(value)}
+      onChange={(_, value) => setOrg(value ?? "")}
+      loading={loading}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Organisation"
+          placeholder="Type to search..."
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress size={16} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
+    />
   );
 }

@@ -3,8 +3,8 @@ import express from "express";
 import cors from "cors";
 
 import { configureSession } from "./middleware/session";
-import { registerAuthRoutes } from "./routes/auth";
-import { registerHealthRoutes } from "./routes/health";
+import { authRouter } from "./routes/auth";
+import { healthRouter } from "./routes/health";
 import { registerTrpc } from "./trpc/register";
 
 const app = express();
@@ -22,8 +22,8 @@ app.use(
 configureSession(app);
 
 // Routes
-registerHealthRoutes(app);
-registerAuthRoutes(app);
+app.use("/health", healthRouter);
+app.use("/auth", authRouter);
 
 // tRPC
 registerTrpc(app);

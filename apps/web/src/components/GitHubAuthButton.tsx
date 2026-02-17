@@ -66,7 +66,6 @@ export function GitHubAuthButton() {
     );
   }
 
-  console.log(status);
   return (
     <Button
       variant="contained"

@@ -3,28 +3,32 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 const ORG_STORAGE_KEY = "github-atlas:lastOrg";
 
 type OrgState = {
-  org: string;
-  setOrg: (org: string) => void;
+  org: string | null;
+  setOrg: (org: string | null) => void;
+  clearOrg: () => void;
 };
 
 const OrgContext = createContext<OrgState | null>(null);
 
 export function OrgProvider({ children }: { children: React.ReactNode }) {
-  const [org, setOrgState] = useState(
-    localStorage.getItem(ORG_STORAGE_KEY) ?? "backstage",
-  );
+  const [org, setOrgState] = useState<string | null>(() => {
+    const saved = localStorage.getItem(ORG_STORAGE_KEY);
+    return saved?.trim() ? saved.trim() : null;
+  });
 
-  const setOrg = (next: string) => {
-    const trimmed = next.trim();
-    if (!trimmed) return;
-    setOrgState(trimmed);
+  const setOrg = (next: string | null) => {
+    const trimmed = next?.trim() ?? "";
+    setOrgState(trimmed ? trimmed : null);
   };
 
+  const clearOrg = () => setOrgState(null);
+
   useEffect(() => {
-    localStorage.setItem(ORG_STORAGE_KEY, org);
+    if (org) localStorage.setItem(ORG_STORAGE_KEY, org);
+    else localStorage.removeItem(ORG_STORAGE_KEY);
   }, [org]);
 
-  const value = useMemo(() => ({ org, setOrg }), [org]);
+  const value = useMemo(() => ({ org, setOrg, clearOrg }), [org]);
 
   return <OrgContext.Provider value={value}>{children}</OrgContext.Provider>;
 }
