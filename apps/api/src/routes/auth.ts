@@ -9,4 +9,20 @@ export function registerAuthRoutes(app: Express) {
   });
 
   app.post("/auth/logout", githubLogout);
+
+  app.get("/auth/status", (req, res) => {
+    res.json({
+      loggedIn: Boolean(req.session.githubToken),
+      login: req.session.githubLogin ?? null,
+    });
+  });
+
+  app.get("/auth/debug", (req, res) => {
+    res.json({
+      hasSession: Boolean(req.session),
+      sessionID: req.sessionID,
+      hasToken: Boolean(req.session.githubToken),
+      cookie: req.headers.cookie ?? null,
+    });
+  });
 }
