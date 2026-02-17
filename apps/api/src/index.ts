@@ -6,12 +6,12 @@ import { LRUCache } from "lru-cache";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 
 import {
-  ingestOrgProfiles,
+  fetchOrgProfiles,
   listViewerOrgs,
   searchOrgsByLogin,
 } from "@github-atlas/core";
 
-import { createAppRouter, type Context } from "@github-atlas/api-contract";
+import { createAppRouter, type Context } from "@github-atlas/api-router";
 
 // ---------------------------------------------------------------------
 // env
@@ -40,15 +40,11 @@ const cache = new LRUCache<string, any>({
 // ---------------------------------------------------------------------
 
 const appRouter = createAppRouter({
-  ingestOrgProfiles,
+  fetchOrgProfiles,
   listViewerOrgs,
   searchOrgsByLogin,
-  cache: {
-    get: (k) => cache.get(k),
-    set: (k, v) => cache.set(k, v),
-    delete: (k) => cache.delete(k),
-  },
-});
+  cache,
+})
 
 // ---------------------------------------------------------------------
 // express

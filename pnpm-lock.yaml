@@ -17,7 +17,7 @@ importers:
 
   apps/api:
     dependencies:
-      '@github-atlas/api-contract':
+      '@github-atlas/api-router':
         specifier: workspace:^
         version: link:../../packages/api-contract
       '@github-atlas/core':
@@ -66,7 +66,7 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.2.9
         version: 5.2.9
-      '@github-atlas/api-contract':
+      '@github-atlas/api-router':
         specifier: workspace:^
         version: link:../../packages/api-contract
       '@github-atlas/graph':

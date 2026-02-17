@@ -1,5 +1,5 @@
 {
-  "name": "@github-atlas/api-contract",
+  "name": "@github-atlas/api-router",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
